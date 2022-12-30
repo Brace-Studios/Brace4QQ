@@ -1,0 +1,40 @@
+plugins {
+    id 'java'
+    id 'org.jetbrains.kotlin.jvm' version '1.5.30'
+}
+
+group maven_group
+version project_version
+
+repositories {
+    maven {
+        url "https://libraries.minecraft.net"
+    }
+    maven {
+        url "https://maven.cjsah.net/"
+    }
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'dev.dubhe:ChatBotApi:1.0.0+build.16'
+    implementation 'net.mamoe:mirai-core:2.13.0-RC2'
+    implementation 'net.mamoe:mirai-core-api:2.13.0-RC2'
+}
+
+jar {
+    manifest {
+        attributes([
+                "Specification-Title"   : project.name,
+                "Specification-Vendor"  : "Gugle",
+                "Specification-Version" : "1",
+                "Implementation-Title"  : project.name,
+                "Implementation-Version": project_version,
+                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+}
+
+test {
+    useJUnitPlatform()
+}
