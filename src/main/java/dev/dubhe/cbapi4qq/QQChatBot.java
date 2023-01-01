@@ -2,10 +2,12 @@ package dev.dubhe.cbapi4qq;
 
 import com.mojang.logging.LogUtils;
 import dev.dubhe.cbapi.ChatBot;
-import dev.dubhe.cbapi.base.Server;
+import dev.dubhe.cbapi.base.Guild;
 import dev.dubhe.cbapi.base.User;
-import dev.dubhe.cbapi4qq.base.QQServer;
+import dev.dubhe.cbapi.event.Events;
+import dev.dubhe.cbapi4qq.base.QQGuild;
 import dev.dubhe.cbapi4qq.base.QQUser;
+import dev.dubhe.cbapi4qq.commands.StopCommand;
 import dev.dubhe.cbapi4qq.event.EventsInvoker;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.BotFactory;
@@ -20,13 +22,19 @@ import java.util.stream.Collectors;
 
 public class QQChatBot implements ChatBot {
     public Bot bot;
-    private final QQConfig config = new QQConfig();
+    private final QQConfig config;
     public static final Logger LOGGER = LogUtils.getLogger();
+
+    public QQChatBot() {
+        this.config = BotFile.getConfig();
+    }
 
     @Override
     public void onStart() {
         this.bot = BotFactory.INSTANCE.newBot(config.username, config.password, this.getBotConfig());
+        bot.login();
         EventsInvoker.register(this.bot);
+        Events.ON_COMMAND_REGISTER.listen(StopCommand::register);
     }
 
     @Override
@@ -42,8 +50,8 @@ public class QQChatBot implements ChatBot {
 
     @Override
     @Nonnull
-    public List<Server> getServers() {
-        return bot.getGroups().stream().map(group -> (Server) new QQServer(group)).collect(Collectors.toList());
+    public List<Guild> getGuilds() {
+        return bot.getGroups().stream().map(group -> (Guild) new QQGuild(group)).collect(Collectors.toList());
     }
 
     @Override
@@ -60,9 +68,9 @@ public class QQChatBot implements ChatBot {
     }
 
     @Override
-    public Server getServer(Long id) {
+    public Guild getGuild(Long id) {
         Group group = bot.getGroup(id);
-        if (null != group) return new QQServer(group);
+        if (null != group) return new QQGuild(group);
         return null;
     }
 
@@ -85,9 +93,10 @@ public class QQChatBot implements ChatBot {
         return config;
     }
 
-    static class QQConfig extends Config {
-        Long username;
-        String password;
-        String protocol;
+    public static class QQConfig extends Config {
+        public Long username = 233333L;
+        public String password = "";
+        public String protocol = "MACOS";
+        public Long owner = 666666L;
     }
 }

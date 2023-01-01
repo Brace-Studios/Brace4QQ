@@ -1,12 +1,11 @@
 package dev.dubhe.cbapi4qq.base;
 
-import dev.dubhe.cbapi.base.Server;
+import dev.dubhe.cbapi.base.Guild;
 import dev.dubhe.cbapi.base.TextChannel;
 import dev.dubhe.cbapi.base.User;
 import dev.dubhe.cbapi.util.chat.Component;
 import net.mamoe.mirai.contact.Contact;
 import net.mamoe.mirai.contact.Group;
-import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 import java.io.File;
@@ -27,12 +26,12 @@ public class QQTextChannel implements TextChannel {
     }
 
     @Override
-    public void sendMessage(String s) {
+    public void sendMessage(@Nonnull String s) {
         this.contact.sendMessage(s);
     }
 
     @Override
-    public void sendFile(File file) {
+    public void sendFile(@Nonnull File file) {
     }
 
     @Override
@@ -51,7 +50,7 @@ public class QQTextChannel implements TextChannel {
 
     @Override
     @Nonnull
-    public Server getServer() {
-        return new QQServer(contact);
+    public Guild getGuild() {
+        return new QQGuild(contact);
     }
 }

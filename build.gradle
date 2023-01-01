@@ -1,6 +1,6 @@
 plugins {
     id 'java'
-    id 'org.jetbrains.kotlin.jvm' version '1.5.30'
+    id 'org.jetbrains.kotlin.jvm' version '1.8.0'
 }
 
 group maven_group
@@ -8,7 +8,7 @@ version project_version
 
 repositories {
     maven {
-        url "https://libraries.minecraft.net"
+        url "https://libraries.minecraft.net/"
     }
     maven {
         url "https://maven.cjsah.net/"
@@ -17,21 +17,48 @@ repositories {
 }
 
 dependencies {
-    implementation 'dev.dubhe:ChatBotApi:1.0.0+build.16'
+    implementation 'dev.dubhe:ChatBotApi:1.1.0+build.16'
     implementation 'net.mamoe:mirai-core:2.13.0-RC2'
-    implementation 'net.mamoe:mirai-core-api:2.13.0-RC2'
+    implementation 'net.mamoe:mirai-core-api:2.13.2'
 }
 
 jar {
+    from("LICENSE")
     manifest {
         attributes([
-                "Specification-Title"   : project.name,
-                "Specification-Vendor"  : "Gugle",
-                "Specification-Version" : "1",
-                "Implementation-Title"  : project.name,
-                "Implementation-Version": project_version,
+                'Main-Class': 'dev.dubhe.cbapi.Main',
+                "Class-Path"              : configurations.runtimeClasspath.files.collect { "libraries/$it.name" }.join(' '),
+                "Specification-Title"     : project.name,
+                "Specification-Vendor"    : "Gugle",
+                "Specification-Version"   : "1",
+                "Implementation-Title"    : project.name,
+                "Implementation-Version"  : project_version,
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
+    }
+}
+
+task libraries {
+    StringBuilder builder = new StringBuilder()
+    builder.append "{\"maven_source\": ["
+    repositories.forEach {
+        builder.append "\"%s\",".formatted(it.properties.url)
+    }
+    builder.delete(builder.length() - 1, builder.length())
+    builder.append "], \"libraries\": ["
+    configurations.runtimeClasspath.files.forEach { file ->
+        String[] a = file.toString().split("\\\\")
+        builder.append "{\"group\": \"%s\", \"name\": \"%s\", \"version\": \"%s\"},".formatted(a[a.length - 5], a[a.length - 4], a[a.length - 3])
+    }
+    builder.delete(builder.length() - 1, builder.length())
+    builder.append "]}"
+    File file = new File("$rootDir/src/main/resources/libraries.json")
+    if (!file.isFile()) {
+        file.createNewFile()
+    }
+    try (FileOutputStream out = new FileOutputStream(file)
+         OutputStreamWriter writer = new OutputStreamWriter(out)) {
+        writer.write(builder.toString())
     }
 }
 

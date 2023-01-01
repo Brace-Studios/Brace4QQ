@@ -1,8 +1,11 @@
 .gradle
+cache/
+logs/
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
+*.log.gz
 
 ### IntelliJ IDEA ###
 .idea

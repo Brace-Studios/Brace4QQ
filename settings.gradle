@@ -1,2 +1,3 @@
 rootProject.name = 'ChatBotAPI4QQ'
+include 'ChatBotLauncher'
 

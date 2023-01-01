@@ -4,7 +4,7 @@ import dev.dubhe.cbapi.base.TextChannel;
 import dev.dubhe.cbapi.base.TextMessage;
 import dev.dubhe.cbapi.base.User;
 import dev.dubhe.cbapi.util.chat.Component;
-import dev.dubhe.cbapi.util.chat.TranslationComponent;
+import dev.dubhe.cbapi.util.chat.TranslatableComponent;
 import net.mamoe.mirai.contact.Contact;
 import net.mamoe.mirai.message.data.MessageChain;
 import net.mamoe.mirai.message.data.MessageChainBuilder;
@@ -26,7 +26,7 @@ public class QQTextMessage implements TextMessage {
     @Override
     @Nonnull
     public Component getMsg() {
-        return new TranslationComponent(message.toString());
+        return new TranslatableComponent(message.toString());
     }
 
     @Override

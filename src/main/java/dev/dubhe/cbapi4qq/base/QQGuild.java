@@ -1,7 +1,7 @@
 package dev.dubhe.cbapi4qq.base;
 
 import dev.dubhe.cbapi.base.Channel;
-import dev.dubhe.cbapi.base.Server;
+import dev.dubhe.cbapi.base.Guild;
 import dev.dubhe.cbapi.base.User;
 import net.mamoe.mirai.contact.Contact;
 import net.mamoe.mirai.contact.Group;
@@ -12,10 +12,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class QQServer implements Server {
+public class QQGuild implements Guild {
     private final Contact contact;
 
-    public QQServer(Contact contact) {
+    public QQGuild(Contact contact) {
         this.contact = contact;
     }
 
@@ -37,7 +37,7 @@ public class QQServer implements Server {
 
     @Override
     @Nonnull
-    public Long getServerID() {
+    public Long getGuildID() {
         return contact.getId();
     }
 }
