@@ -1,14 +1,14 @@
-package dev.dubhe.cbapi4qq;
+package dev.dubhe.brace4qq;
 
 import com.mojang.logging.LogUtils;
-import dev.dubhe.cbapi.ChatBot;
-import dev.dubhe.cbapi.base.Guild;
-import dev.dubhe.cbapi.base.User;
-import dev.dubhe.cbapi.event.Events;
-import dev.dubhe.cbapi4qq.base.QQGuild;
-import dev.dubhe.cbapi4qq.base.QQUser;
-import dev.dubhe.cbapi4qq.commands.StopCommand;
-import dev.dubhe.cbapi4qq.event.EventsInvoker;
+import dev.dubhe.brace.BraceBot;
+import dev.dubhe.brace.base.Guild;
+import dev.dubhe.brace.base.User;
+import dev.dubhe.brace.event.BraceEvents;
+import dev.dubhe.brace4qq.base.QQGuild;
+import dev.dubhe.brace4qq.base.QQUser;
+import dev.dubhe.brace4qq.commands.StopCommand;
+import dev.dubhe.brace4qq.event.EventsInvoker;
 import net.mamoe.mirai.Bot;
 import net.mamoe.mirai.BotFactory;
 import net.mamoe.mirai.contact.Friend;
@@ -20,7 +20,7 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class QQChatBot implements ChatBot {
+public class QQChatBot implements BraceBot {
     public Bot bot;
     private final QQConfig config;
     public static final Logger LOGGER = LogUtils.getLogger();
@@ -34,7 +34,7 @@ public class QQChatBot implements ChatBot {
         this.bot = BotFactory.INSTANCE.newBot(config.username, config.password, this.getBotConfig());
         bot.login();
         EventsInvoker.register(this.bot);
-        Events.ON_COMMAND_REGISTER.listen(StopCommand::register);
+        BraceEvents.ON_COMMAND_REGISTER.listen(StopCommand::register);
     }
 
     @Override

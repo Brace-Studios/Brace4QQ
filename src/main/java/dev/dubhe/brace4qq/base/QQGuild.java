@@ -1,8 +1,8 @@
-package dev.dubhe.cbapi4qq.base;
+package dev.dubhe.brace4qq.base;
 
-import dev.dubhe.cbapi.base.Channel;
-import dev.dubhe.cbapi.base.Guild;
-import dev.dubhe.cbapi.base.User;
+import dev.dubhe.brace.base.Channel;
+import dev.dubhe.brace.base.Guild;
+import dev.dubhe.brace.base.User;
 import net.mamoe.mirai.contact.Contact;
 import net.mamoe.mirai.contact.Group;
 

@@ -1,4 +1,4 @@
-package dev.dubhe.cbapi4qq;
+package dev.dubhe.brace4qq;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

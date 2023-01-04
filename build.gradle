@@ -17,7 +17,7 @@ repositories {
 }
 
 dependencies {
-    implementation 'dev.dubhe:ChatBotApi:1.1.0+build.16'
+    implementation 'dev.dubhe:Brace:1.0.0+build.19'
     implementation 'net.mamoe:mirai-core:2.13.0-RC2'
     implementation 'net.mamoe:mirai-core-api:2.13.2'
 }
@@ -26,7 +26,7 @@ jar {
     from("LICENSE")
     manifest {
         attributes([
-                'Main-Class': 'dev.dubhe.cbapi.Main',
+                'Main-Class': 'dev.dubhe.brace4qq.Main',
                 "Class-Path"              : configurations.runtimeClasspath.files.collect { "libraries/$it.name" }.join(' '),
                 "Specification-Title"     : project.name,
                 "Specification-Vendor"    : "Gugle",

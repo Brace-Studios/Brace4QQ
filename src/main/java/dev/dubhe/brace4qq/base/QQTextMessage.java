@@ -1,10 +1,10 @@
-package dev.dubhe.cbapi4qq.base;
+package dev.dubhe.brace4qq.base;
 
-import dev.dubhe.cbapi.base.TextChannel;
-import dev.dubhe.cbapi.base.TextMessage;
-import dev.dubhe.cbapi.base.User;
-import dev.dubhe.cbapi.util.chat.Component;
-import dev.dubhe.cbapi.util.chat.TranslatableComponent;
+import dev.dubhe.brace.base.TextChannel;
+import dev.dubhe.brace.base.TextMessage;
+import dev.dubhe.brace.base.User;
+import dev.dubhe.brace.util.chat.Component;
+import dev.dubhe.brace.util.chat.TranslatableComponent;
 import net.mamoe.mirai.contact.Contact;
 import net.mamoe.mirai.message.data.MessageChain;
 import net.mamoe.mirai.message.data.MessageChainBuilder;

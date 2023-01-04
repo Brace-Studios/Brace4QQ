@@ -1,7 +1,7 @@
-package dev.dubhe.cbapi4qq.base;
+package dev.dubhe.brace4qq.base;
 
-import dev.dubhe.cbapi.base.TextChannel;
-import dev.dubhe.cbapi.base.User;
+import dev.dubhe.brace.base.TextChannel;
+import dev.dubhe.brace.base.User;
 
 import javax.annotation.Nonnull;
 

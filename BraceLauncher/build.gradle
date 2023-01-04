@@ -15,7 +15,7 @@ dependencies {
 jar {
     manifest {
         attributes(
-                'Main-Class': 'dev.dubhe.cbapi.launcher.Launcher'
+                'Main-Class': 'dev.dubhe.brace.launcher.Launcher'
         )
     }
 }

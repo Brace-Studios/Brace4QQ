@@ -1,4 +1,4 @@
-package dev.dubhe.cbapi.launcher;
+package dev.dubhe.brace.launcher;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
