@@ -3,7 +3,7 @@ package dev.dubhe.brace4qq.base;
 import dev.dubhe.brace.base.Guild;
 import dev.dubhe.brace.base.TextChannel;
 import dev.dubhe.brace.base.User;
-import dev.dubhe.brace.util.chat.Component;
+import dev.dubhe.brace.utils.chat.Component;
 import net.mamoe.mirai.contact.Contact;
 import net.mamoe.mirai.contact.Group;
 

@@ -2,9 +2,10 @@ package dev.dubhe.brace4qq;
 
 import com.mojang.logging.LogUtils;
 import dev.dubhe.brace.BraceBot;
+import dev.dubhe.brace.BraceServer;
 import dev.dubhe.brace.base.Guild;
 import dev.dubhe.brace.base.User;
-import dev.dubhe.brace.event.BraceEvents;
+import dev.dubhe.brace.events.brace.CommandRegisterEvent;
 import dev.dubhe.brace4qq.base.QQGuild;
 import dev.dubhe.brace4qq.base.QQUser;
 import dev.dubhe.brace4qq.commands.StopCommand;
@@ -30,11 +31,15 @@ public class QQChatBot implements BraceBot {
     }
 
     @Override
-    public void onStart() {
+    public void onInitialization() {
         this.bot = BotFactory.INSTANCE.newBot(config.username, config.password, this.getBotConfig());
-        bot.login();
+        BraceServer.getEventManager().listen(CommandRegisterEvent.class, event -> event.register(StopCommand::register));
+    }
+
+    @Override
+    public void onStart() {
+        this.bot.login();
         EventsInvoker.register(this.bot);
-        BraceEvents.ON_COMMAND_REGISTER.listen(StopCommand::register);
     }
 
     @Override
@@ -90,6 +95,7 @@ public class QQChatBot implements BraceBot {
             default -> config.setProtocol(BotConfiguration.MiraiProtocol.ANDROID_PHONE);
         }
         config.noBotLog();
+        config.noNetworkLog();
         return config;
     }
 

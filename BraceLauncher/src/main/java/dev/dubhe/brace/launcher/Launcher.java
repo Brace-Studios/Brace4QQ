@@ -20,6 +20,7 @@ public class Launcher {
     public static final Path LIBRARIES_PATH = ROOT.resolve("libraries");
 
     public static void main(String[] args) {
+        System.out.println("Downloading library, please wait...");
         if (!LIBRARIES_PATH.toFile().isDirectory()) LIBRARIES_PATH.toFile().mkdir();
         String gson = "gson-2.8.9.jar";
         if (!LIBRARIES_PATH.resolve(gson).toFile().isFile()) {
@@ -101,14 +102,13 @@ public class Launcher {
     public static boolean downloadByNIO(String url, String saveDir, String fileName) {
         File file = new File(saveDir, fileName);
         file.getParentFile().mkdirs();
-        try (
-                ReadableByteChannel rbc = Channels.newChannel(new URL(url).openStream());
-                FileOutputStream fos = new FileOutputStream(file);
-                FileChannel foutc = fos.getChannel();
-        ) {
-            System.out.printf("downloading: %s\n", url);
-            foutc.transferFrom(rbc, 0, Long.MAX_VALUE);
-            return true;
+        try (ReadableByteChannel rbc = Channels.newChannel(new URL(url).openStream());) {
+            System.out.printf("Downloading: %s\n", url);
+            try (FileOutputStream fos = new FileOutputStream(file);
+                 FileChannel foutc = fos.getChannel()) {
+                foutc.transferFrom(rbc, 0, Long.MAX_VALUE);
+                return true;
+            }
         } catch (FileNotFoundException ignored) {
         } catch (IOException e) {
             e.printStackTrace();

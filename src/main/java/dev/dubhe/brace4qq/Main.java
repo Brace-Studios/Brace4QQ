@@ -1,8 +1,6 @@
 package dev.dubhe.brace4qq;
 
 import dev.dubhe.brace.BraceServer;
-import dev.dubhe.brace4qq.BotFile;
-import dev.dubhe.brace4qq.QQChatBot;
 
 public class Main {
     public static void main(String[] args) {
