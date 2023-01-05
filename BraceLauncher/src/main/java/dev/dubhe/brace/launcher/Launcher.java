@@ -102,13 +102,14 @@ public class Launcher {
     public static boolean downloadByNIO(String url, String saveDir, String fileName) {
         File file = new File(saveDir, fileName);
         file.getParentFile().mkdirs();
-        try (ReadableByteChannel rbc = Channels.newChannel(new URL(url).openStream());) {
-            System.out.printf("Downloading: %s\n", url);
-            try (FileOutputStream fos = new FileOutputStream(file);
-                 FileChannel foutc = fos.getChannel()) {
-                foutc.transferFrom(rbc, 0, Long.MAX_VALUE);
-                return true;
-            }
+        System.out.printf("Downloading: %s\n", url);
+        try (
+                ReadableByteChannel rbc = Channels.newChannel(new URL(url).openStream());
+                FileOutputStream fos = new FileOutputStream(file);
+                FileChannel foutc = fos.getChannel();
+        ) {
+            foutc.transferFrom(rbc, 0, Long.MAX_VALUE);
+            return true;
         } catch (FileNotFoundException ignored) {
         } catch (IOException e) {
             e.printStackTrace();
