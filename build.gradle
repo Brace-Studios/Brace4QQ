@@ -17,16 +17,20 @@ repositories {
 }
 
 dependencies {
-    implementation 'dev.dubhe:Brace:1.0.0+build.28'
-    implementation 'net.mamoe:mirai-core:2.13.0-RC2'
-    implementation 'net.mamoe:mirai-core-api:2.13.2'
+    implementation "dev.dubhe:Brace:${brace_version}"
+    implementation "net.mamoe:mirai-core:${mirai_core_version}"
+    implementation "net.mamoe:mirai-core-api:${mirai_core_api_version}"
+}
+
+java {
+    archivesBaseName = project.archives_base_name
 }
 
 jar {
     from("LICENSE")
     manifest {
         attributes([
-                'Main-Class': 'dev.dubhe.brace4qq.Main',
+                'Main-Class'              : 'dev.dubhe.brace4qq.Main',
                 "Class-Path"              : configurations.runtimeClasspath.files.collect { "libraries/$it.name" }.join(' '),
                 "Specification-Title"     : project.name,
                 "Specification-Vendor"    : "Gugle",

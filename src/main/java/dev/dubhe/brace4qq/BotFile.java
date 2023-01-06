@@ -10,9 +10,9 @@ public abstract class BotFile {
     public static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     public static final Path ROOT = new File("").toPath().toAbsolutePath();
     public static final File CONFIG = ROOT.resolve("config.json").toFile();
-    public static final File CONFIG_PATH = ROOT.resolve("config").toFile();
+    public static final File CONFIG_PATH = ROOT.resolve("configs").toFile();
     public static final File PLUGIN_PATH = ROOT.resolve("plugins").toFile();
-    public static final File RESOURCES_PATH = ROOT.resolve("resources_pack").toFile();
+    public static final File RESOURCES_PATH = ROOT.resolve("resources_packs").toFile();
 
     public static boolean check() {
         if (!CONFIG_PATH.isDirectory()) CONFIG_PATH.mkdir();

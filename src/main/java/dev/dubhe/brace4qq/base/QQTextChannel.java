@@ -5,10 +5,13 @@ import dev.dubhe.brace.base.TextChannel;
 import dev.dubhe.brace.base.User;
 import dev.dubhe.brace.utils.chat.Component;
 import net.mamoe.mirai.contact.Contact;
+import net.mamoe.mirai.contact.FileSupported;
 import net.mamoe.mirai.contact.Group;
+import net.mamoe.mirai.utils.ExternalResource;
 
 import javax.annotation.Nonnull;
 import java.io.File;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -21,8 +24,9 @@ public class QQTextChannel implements TextChannel {
     }
 
     @Override
-    public void sendMessage(Component component) {
-        this.contact.sendMessage(component.getString());
+    public void sendMessage(@Nonnull Component component) {
+        QQComponentResolver resolver = new QQComponentResolver(component, contact);
+        this.contact.sendMessage(resolver.resolve());
     }
 
     @Override
@@ -32,6 +36,13 @@ public class QQTextChannel implements TextChannel {
 
     @Override
     public void sendFile(@Nonnull File file) {
+        try (ExternalResource resource = ExternalResource.create(file)) {
+            if (this.contact instanceof FileSupported supported) {
+                supported.getFiles().uploadNewFile(file.getName(), resource);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

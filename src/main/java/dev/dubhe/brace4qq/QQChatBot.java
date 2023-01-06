@@ -45,6 +45,7 @@ public class QQChatBot implements BraceBot {
     @Override
     public void onStop() {
         bot.close();
+        System.exit(0);
     }
 
     @Override
